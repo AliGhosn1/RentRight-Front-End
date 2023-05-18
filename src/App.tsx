@@ -36,7 +36,7 @@ function App() {
   const authProvider: AuthProvider = {
     login: ({ credential }: CredentialResponse) => {
       const profileObj = credential ? parseJwt(credential) : null;
-
+      console.log(profileObj);
       if (profileObj) {
         localStorage.setItem(
           "user",
