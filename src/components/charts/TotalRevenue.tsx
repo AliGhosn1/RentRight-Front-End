@@ -13,6 +13,8 @@ const TotalRevenue = () => {
       display='flex'
       flexDirection='column'
       borderRadius='15px'
+      width={{xs: '100%', lg: '1px'}}
+      overflow='hidden'
     >
 
       <Typography fontSize={18} fontWeight={600} color='#11142d'>Total Revenue</Typography>
@@ -34,6 +36,7 @@ const TotalRevenue = () => {
       series={TotalRevenueSeries}
       type='bar'
       height={310}
+      width='100%'
       options={TotalRevenueOptions}
       />
     </Box>
