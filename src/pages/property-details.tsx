@@ -1,9 +1,53 @@
-import React from 'react'
+import { Typography, Box, Stack } from "@pankod/refine-mui";
+import { useDelete, useGetIdentity, useShow } from "@pankod/refine-core";
+import { useParams, useNavigate } from "@pankod/refine-react-router-v6";
+import { ChatBubble, Delete, Phone, Edit, Place, Star } from "@mui/icons-material";
+import { CustomButton } from "components";
 
-const propertyDetails = () => {
+const PropertyDetails = () => {
+  const navigate = useNavigate();
+  const { data: user } = useGetIdentity();
+  const { id } = useParams();
+  const { mutate } = useDelete();
+  const { queryResult } = useShow();
+
+  const { data, isLoading, isError } = queryResult;
+
+  const propertyDetails = data?.data ?? {};
+
+  if(isLoading) return <div>Loading..</div>
+  if(isError) return <div>Error</div>
+
+
   return (
-    <div>D</div>
+    <Box
+      borderRadius='15px'
+      padding='20px'
+      bgcolor='#fcfcfc'
+      width='fit-content'
+    >
+      <Typography fontSize={25} fontWeight={700} color='#11142d'>Details</Typography>
+      <Box mt='20px' display='flex' flexDirection={{xs: 'column', lg: 'row'}}>
+        <Box flex={1} maxWidth={764}>
+          <img 
+            src={propertyDetails.photo}
+            alt={propertyDetails.title}
+            height={546}
+            style={{ objectFit: 'cover', borderRadius: '10px' }}
+            className="property_details-img"
+          />
+          <Box mt='15px'>
+            <Stack>
+              <Typography>{ propertyDetails.propertyType }</Typography>
+              <Box>
+
+              </Box>
+            </Stack>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   )
 }
 
-export default propertyDetails
+export default PropertyDetails
