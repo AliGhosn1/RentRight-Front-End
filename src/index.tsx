@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { createTheme, ThemeProvider } from "@pankod/refine-mui";
+import { CssBaseline } from "@pankod/refine-mui";
 
 import 'index.css'
 
@@ -20,6 +21,7 @@ const lightTheme = createTheme({
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={lightTheme}>
+      <CssBaseline />
       <App />
     </ThemeProvider>
   </React.StrictMode>
