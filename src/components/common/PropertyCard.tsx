@@ -36,7 +36,7 @@ const PropertyCard = ({ id, title, location, price, photo }: PropertyCardProps) 
         paddingX: '5px'
       }}>
         <Stack direction= 'column' gap={1}>
-          <Typography fontSize={16} fontWeight={500} color='11142d'>{ title }</Typography>
+          <Typography fontSize={16} fontWeight={500} color='#11142d'>{ title }</Typography>
           <Stack direction='row' gap={0.5} alignItems='flex-start'>
             <Place sx={{
               fontSize: 18,

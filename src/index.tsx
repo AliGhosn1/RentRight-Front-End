@@ -4,14 +4,24 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+import { createTheme, ThemeProvider } from "@pankod/refine-mui";
+
 import 'index.css'
 
 const container = document.getElementById("root") as HTMLElement;
 const root = createRoot(container);
 
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+});
+
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={lightTheme}>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>
 );
 
