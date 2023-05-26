@@ -32,6 +32,13 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
                 color="info"
                 variant="outlined"
                 {...register('title', { required: true })}
+                style={{
+                  background: 'transparent',
+                  borderColor: 'rgba(0, 0, 0, 0.23)',
+                  borderRadius: 6,
+                  padding: 10,
+                  color: '#919191'
+                }}
               />
             </FormControl>
 
@@ -78,6 +85,13 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
                     inputProps={{ 'aria-label': 'Wiyhout label' }}
                     defaultValue='apartment'
                     {...register('propertyType', { required: true })}
+                    style={{
+                      background: 'transparent',
+                      borderColor: 'rgba(0, 0, 0, 0.23)',
+                      borderRadius: 6,
+                      padding: 10,
+                      color: '#919191'
+                    }}
                   >
                     <MenuItem value='apartment'>Apartment</MenuItem>
                     <MenuItem value='villa'>Villa</MenuItem>
@@ -105,6 +119,13 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
                     type="number"
                     variant="outlined"
                     {...register('price', { required: true })}
+                    style={{
+                      background: 'transparent',
+                      borderColor: 'rgba(0, 0, 0, 0.23)',
+                      borderRadius: 6,
+                      padding: 10,
+                      color: '#919191'
+                    }}
                   />
                 </FormControl>
             </Stack>
@@ -122,6 +143,13 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
                     color="info"
                     variant="outlined"
                     {...register('location', { required: true })}
+                    style={{
+                      background: 'transparent',
+                      borderColor: 'rgba(0, 0, 0, 0.23)',
+                      borderRadius: 6,
+                      padding: 10,
+                      color: '#919191'
+                    }}
                   />
                 </FormControl>
                 <Stack direction='column'  gap={1} justifyContent='center' mb={2}>
