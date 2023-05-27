@@ -12,7 +12,7 @@ const InfoBar = ({name, icon}: InfoBarProps) => (
   </Stack>
 )
 
-const AgentCard = ({ id, name, email, avatar, noOfProperties }: AgentCardProp) => {
+const AgentCard = ({ id, name, email, avatar, number, address, noOfProperties }: AgentCardProp) => {
   const { data:currentUser } = useGetIdentity();
 
   const generateLink = () => {
@@ -71,15 +71,15 @@ const AgentCard = ({ id, name, email, avatar, noOfProperties }: AgentCardProp) =
           />
           <InfoBar 
             icon={<Place sx={{ color: '#808191' }}/>}
-            name="London"
+            name={address}
           />
           <InfoBar 
             icon={<Phone sx={{ color: '#808191' }}/>}
-            name="(000) 000-00000"
+            name={number}
           />
           <InfoBar 
             icon={<LocationCity sx={{ color: '#808191' }}/>}
-            name={`${noOfProperties} Properties`}
+            name={`${noOfProperties} ${noOfProperties === 1 ? 'Property' : 'Properties'}`}
           />
         </Stack>
       </Stack>

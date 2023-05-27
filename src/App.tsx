@@ -34,7 +34,8 @@ import {
   AllProperties,
   CreateProperty,
   AgentProfile,
-  EditProperty
+  EditProperty,
+  EditProfile
 } from "pages";
 
 const axiosInstance = axios.create();
@@ -52,18 +53,21 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
 });
 
 function App() {
+  const serverUrl = 'http://localhost:8080/api/v1';
+  //const serverUrl = 'https://calm-pear-sheep-veil.cyclic.app/api/v1';
   const authProvider: AuthProvider = {
     login: async ({ credential }: CredentialResponse) => {
       const profileObj = credential ? parseJwt(credential) : null;
-
       if(profileObj){
-        const response = await fetch('https://calm-pear-sheep-veil.cyclic.app/api/v1/users', {
+        const response = await fetch(`${serverUrl}/users`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             name: profileObj.name,
             email: profileObj.email,
-            avatar: profileObj.picture
+            avatar: profileObj.picture,
+            number: 'Unavailable',
+            address: 'Unavailable'
           })
         })
 
@@ -125,7 +129,7 @@ function App() {
       <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
       <RefineSnackbarProvider>
         <Refine
-          dataProvider={dataProvider("https://calm-pear-sheep-veil.cyclic.app/api/v1")}
+          dataProvider={dataProvider(`${serverUrl}`)}
           notificationProvider={notificationProvider}
           ReadyPage={ReadyPage}
           catchAll={<ErrorComponent />}
@@ -160,6 +164,7 @@ function App() {
                 label: 'My Profile'
               },
               list: MyProfile,
+              edit: EditProfile,
               icon: <AccountCircleOutlined />
             },
           ]}

@@ -24,6 +24,8 @@ const AgentProfile = () => {
       email={myProfile.email}
       avatar={myProfile.avatar}
       properties={myProfile.allProperties}
+      number={myProfile.numer}
+      address={myProfile.address}
     />
   )
 }

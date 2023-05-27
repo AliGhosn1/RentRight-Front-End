@@ -39,7 +39,7 @@ const PropertyReferrals = () => {
       borderRadius='15px'
     >
 
-      <Typography fontSize={18} fontWeight={600} color='#11142d'>Property Referrals</Typography>
+      <Typography fontSize={18} fontWeight={600} color='#11142d'>Property Types</Typography>
 
       <Stack
         my='20px'

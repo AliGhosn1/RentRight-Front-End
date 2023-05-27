@@ -113,6 +113,7 @@ const PropertyDetails = () => {
                 width={90}
                 height={90}
                 style={{ borderRadius: '100%', objectFit: 'cover' }}
+                alt='img'
               />
 
               <Box mt="15px">
@@ -122,10 +123,10 @@ const PropertyDetails = () => {
 
               <Stack mt="15px" direction="row" alignItems="center" gap={1}>
                 <Place sx={{ color: '#808191' }} />
-                <Typography fontSize={14} fontWeight={400} color="#808191">North Carolina, USA</Typography>
+                <Typography fontSize={14} fontWeight={400} color="#808191">{ propertyDetails.creator.address }</Typography>
               </Stack>
 
-              <Typography mt={1} fontSize={16} fontWeight={600} color="#11142D">{propertyDetails.creator.allProperties.length} Properties</Typography>
+              <Typography mt={1} fontSize={16} fontWeight={600} color="#11142D">{propertyDetails.creator.allProperties.length} {propertyDetails.creator.allProperties.length === 1 ? 'Property' : 'Properties'}</Typography>
             </Stack>
 
             <Stack width="100%" mt="25px" direction="row" flexWrap="wrap" gap={2}>
@@ -160,6 +161,7 @@ const PropertyDetails = () => {
               width="100%"
               height={306}
               style={{ borderRadius: 10, objectFit: 'cover' }}
+              alt='img'
             />
           </Stack>
 

@@ -1,4 +1,5 @@
 import { useList } from "@pankod/refine-core";
+import { useState, useEffect } from "react";
 
 import{
   PieChart,
@@ -10,17 +11,36 @@ import{
 
 import { Typography, Box, Stack } from "@pankod/refine-mui";
 
+
 const Home = () => {
+  const [propertiesInfo, setPropertiesInfo] = useState({ numberOfProperties: 0, numberOfLocations: 0, avgPrice: 0 });
+
   const { data, isLoading, isError } = useList({
     resource: 'properties',
-    config: {
-      pagination: {
-        pageSize: 4
-      }
-    }
   })
 
-  const latestProperties = data?.data ?? [];
+  useEffect(() => {
+    
+    if(data){
+      const locations = new Set();
+      let totalPrice = 0;
+      data.data.forEach((property) => {
+        console.log(property)
+        locations.add(property.location)
+        totalPrice += property.price;
+      })
+
+      const propertyData = {
+        numberOfProperties: data.data.length,
+        numberOfLocations: locations.size,
+        avgPrice: Math.round((totalPrice / data.data.length) * 100) / 100
+      }
+      setPropertiesInfo(propertyData);
+    }
+
+  }, [data])
+
+  let latestProperties = data?.data.slice(data.data.length-4 > 0 ? data.data.length-4 : 0, data.data.length).reverse() ?? []; 
 
   if(isLoading) return <div>Loading...</div>
   if(isError) return <div>Error</div>
@@ -33,20 +53,20 @@ const Home = () => {
 
       <Box mt='20px' display='flex' flexWrap='wrap' gap={4}>
         <PieChart 
-          title='Properties for Sale'
-          value={684}
+          title='Properties Available'
+          value={propertiesInfo.numberOfProperties}
           series={[75, 25]}
           colors={['#275be8', '#c4e8ef']}
         />
         <PieChart 
-          title='Properties for Rent'
-          value={550}
+          title='Locations'
+          value={propertiesInfo.numberOfLocations}
           series={[60, 40]}
           colors={['#275be8', '#c4e8ef']}
         />
         <PieChart 
-          title='Total customers'
-          value={5684}
+          title='Current Average Price'
+          value={propertiesInfo.avgPrice}
           series={[75, 25]}
           colors={['#275be8', '#c4e8ef']}
         />

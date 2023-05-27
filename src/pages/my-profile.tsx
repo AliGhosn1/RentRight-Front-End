@@ -23,6 +23,8 @@ const MyProfile = () => {
       email={myProfile.email}
       avatar={myProfile.avatar}
       properties={myProfile.allProperties}
+      number={myProfile.number}
+      address={myProfile.address}
     />
   )
 }

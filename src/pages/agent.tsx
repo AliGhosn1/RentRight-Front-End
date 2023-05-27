@@ -32,6 +32,8 @@ const Agents = () => {
               name={agent.name}
               email={agent.email}
               avatar={agent.avatar}
+              number={agent.number}
+              address={agent.address}
               noOfProperties={agent.allProperties.length}
             />
           ))
