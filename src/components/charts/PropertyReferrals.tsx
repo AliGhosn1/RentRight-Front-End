@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from '@pankod/refine-mui'
 
-import { propertyReferralsInfo } from 'constants/index'
+import { PropertyReferralsProps } from 'interfaces/common'
 
 interface ProgressBarProps{
   title: string,
@@ -27,7 +27,8 @@ const ProgressBar = ({ title, percentage, color }: ProgressBarProps) => (
   </Box>
 )
 
-const PropertyReferrals = () => {
+
+const PropertyReferrals = ({ propertyTypes }: PropertyReferralsProps) => {
   return (
     <Box
       p={4}
@@ -39,7 +40,7 @@ const PropertyReferrals = () => {
       borderRadius='15px'
     >
 
-      <Typography fontSize={18} fontWeight={600} color='#11142d'>Property Types</Typography>
+      <Typography fontSize={18} fontWeight={600} color='#11142d'>Property Distribution Percentage</Typography>
 
       <Stack
         my='20px'
@@ -47,8 +48,8 @@ const PropertyReferrals = () => {
         gap={4}
       >
         {
-          propertyReferralsInfo.map((bar) => (
-            <ProgressBar key={bar.title} {...bar} />
+          propertyTypes.map((category) => (
+            <ProgressBar key={category.title} {...category} />
           ))
         }
       </Stack>

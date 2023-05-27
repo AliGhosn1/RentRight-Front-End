@@ -66,7 +66,7 @@ export const Login: React.FC = () => {
           }}
         >
           <div>
-            <img src={ yariga } alt="Yariga Logo" />
+            <img src={ yariga } alt="RentRight Logo" />
           </div>
           <Box mt={4}>
             <GoogleButton />

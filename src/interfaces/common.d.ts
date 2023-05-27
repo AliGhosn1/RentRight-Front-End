@@ -39,3 +39,13 @@ export interface FormProps {
     onFinishHandler: (data: FieldValues) => Promise<void> | void,
     propertyImage: { name: string, url: string },
 }
+
+export interface PropertyReferralsProps {
+    propertyTypes: [
+        {title: string, percentage: number, color: string}, 
+        {title: string, percentage: number, color: string}, 
+        {title: string, percentage: number, color: string}, 
+        {title: string, percentage: number, color: string}, 
+        {title: string, percentage: number, color: string}
+    ]
+}

@@ -13,27 +13,53 @@ import { Typography, Box, Stack } from "@pankod/refine-mui";
 
 
 const Home = () => {
-  const [propertiesInfo, setPropertiesInfo] = useState({ numberOfProperties: 0, numberOfLocations: 0, avgPrice: 0 });
+  const [propertiesInfo, setPropertiesInfo] = useState({ numberOfProperties: 0, numberOfLocations: 0, avgPrice: 0, 
+    propertyTypes: {apartments: 0, villas: 0, farmhouses: 0, condos: 0, other: 0}
+  });
 
   const { data, isLoading, isError } = useList({
     resource: 'properties',
+  })
+
+  const { data: userData, isLoading: isUserLoading, isError: isUserError } = useList({
+    resource: 'users',
   })
 
   useEffect(() => {
     
     if(data){
       const locations = new Set();
+
+      const types = {apartments: 0, villas: 0, farmhouses: 0, condos: 0, other: 0}
+
       let totalPrice = 0;
       data.data.forEach((property) => {
-        console.log(property)
         locations.add(property.location)
         totalPrice += property.price;
+
+        switch(property.propertyType){
+          case 'apartment': 
+            types.apartments++;
+            break;
+          case 'villa': 
+            types.villas++;
+            break;
+          case 'farmhouse': 
+            types.farmhouses++;
+            break;
+          case 'condos': 
+            types.condos++;
+            break;
+          default:
+            types.other++;
+        }
       })
 
       const propertyData = {
         numberOfProperties: data.data.length,
         numberOfLocations: locations.size,
-        avgPrice: Math.round((totalPrice / data.data.length) * 100) / 100
+        avgPrice: Math.round((totalPrice / data.data.length) * 100) / 100,
+        propertyTypes: {apartments: Math.round((types.apartments / data.data.length) * 100), villas: Math.round((types.villas / data.data.length) * 100), farmhouses: Math.round((types.farmhouses / data.data.length) * 100), condos: Math.round((types.condos / data.data.length) * 100), other: Math.round((types.other / data.data.length) * 100)}
       }
       setPropertiesInfo(propertyData);
     }
@@ -41,9 +67,10 @@ const Home = () => {
   }, [data])
 
   let latestProperties = data?.data.slice(data.data.length-4 > 0 ? data.data.length-4 : 0, data.data.length).reverse() ?? []; 
+  let users = userData?.data ?? [];
 
-  if(isLoading) return <div>Loading...</div>
-  if(isError) return <div>Error</div>
+  if(isLoading || isUserLoading) return <div>Loading...</div>
+  if(isError || isUserError) return <div>Error</div>
 
   return (
     <Box>
@@ -71,8 +98,8 @@ const Home = () => {
           colors={['#275be8', '#c4e8ef']}
         />
         <PieChart 
-          title='Properties for Cities'
-          value={555}
+          title='Number of Agents'
+          value={users.length}
           series={[75, 25]}
           colors={['#275be8', '#c4e8ef']}
         />
@@ -80,7 +107,12 @@ const Home = () => {
 
       <Stack mt='25px' width='100%' direction={{ xs: 'column', lg: 'row'}} gap={4}>
         <TotalRevenue />
-        <PropertyReferrals />
+        <PropertyReferrals propertyTypes={[{title: 'Apartments', percentage: propertiesInfo.propertyTypes.apartments, color: '#475be8'},
+                                           {title: 'Villas', percentage: propertiesInfo.propertyTypes.villas, color: '#475be8'},
+                                           {title: 'Farmhouses', percentage: propertiesInfo.propertyTypes.farmhouses, color: '#475be8'},
+                                           {title: 'Condos', percentage: propertiesInfo.propertyTypes.condos, color: '#475be8'},
+                                           {title: 'Others', percentage: propertiesInfo.propertyTypes.other, color: '#475be8'},
+        ]}/>
       </Stack>
 
       <Box
