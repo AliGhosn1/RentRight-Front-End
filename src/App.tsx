@@ -53,8 +53,8 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
 });
 
 function App() {
-  const serverUrl = 'http://localhost:8080/api/v1';
-  //const serverUrl = 'https://calm-pear-sheep-veil.cyclic.app/api/v1';
+  //const serverUrl = 'http://localhost:8080/api/v1';
+  const serverUrl = 'https://calm-pear-sheep-veil.cyclic.app/api/v1';
   const authProvider: AuthProvider = {
     login: async ({ credential }: CredentialResponse) => {
       const profileObj = credential ? parseJwt(credential) : null;
