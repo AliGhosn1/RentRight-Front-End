@@ -15,8 +15,6 @@ const AgentProfile = () => {
   if(isLoading) return <div>Loading...</div>
   if(isError) return <div>Something went wrong</div>
 
-  console.log(myProfile.name)
-
   return ( 
     <Profile 
       type='Agent'

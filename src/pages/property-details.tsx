@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import { Typography, Box, Stack } from '@pankod/refine-mui';
+import { Typography, Box, Stack, borderRadius } from '@pankod/refine-mui';
 import { useDelete, useGetIdentity, useShow } from '@pankod/refine-core';
 import { useParams, useNavigate } from '@pankod/refine-react-router-v6';
 import { ChatBubble, Delete, Edit, Phone, Place, Star } from '@mui/icons-material';
@@ -16,6 +16,7 @@ const PropertyDetails = () => {
   const { data, isLoading, isError } = queryResult;
 
   const propertyDetails = data?.data ?? {};
+  console.log(propertyDetails)
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -26,6 +27,23 @@ const PropertyDetails = () => {
   }
 
   const isCurrentUser = user.email === propertyDetails.creator.email;
+
+  let stars = 0;
+  if(propertyDetails?.allReviews.length ?? 0 ){
+    propertyDetails.allReviews.forEach((review: any) => {stars += review.rating});
+  }
+
+  stars = Math.round(stars / propertyDetails.allReviews.length);
+  
+  const starArray = [];
+
+  for(var i=0; i < stars; i++){
+    starArray.push(<Star key={`star-${i}`} sx={{ color: '#F2C94C' }} />);
+  }
+
+  for(var i=stars; i < 5; i++){
+    starArray.push(<Star key={`star-${i}`} sx={{ color: 'grey' }} />);
+  }
 
   const handleDeleteProperty = () => {
     const response = confirm('Are you sure you want to delete this property?');
@@ -46,11 +64,11 @@ const PropertyDetails = () => {
       borderRadius="15px"
       padding="20px"
       bgcolor="#FCFCFC"
-      width="fit-content"
+      width="100%"
     >
       <Typography fontSize={25} fontWeight={700} color="#11142D">Details</Typography>
 
-      <Box mt="20px" display="flex" flexDirection={{ xs: 'column', lg: 'row' }} gap={4}>
+      <Box mt="20px" display="flex" flexDirection={{ xs: 'column', lg: 'row' }} justifyContent='space-around' marginX={{xs: 'auto', lg:'0'}}width={{xs: 'max-content', lg:'100%'}}>
 
         <Box flex={1} maxWidth={764}>
           <img
@@ -65,7 +83,9 @@ const PropertyDetails = () => {
             <Stack direction="row" justifyContent="space-between" flexWrap="wrap" alignItems="center">
               <Typography fontSize={18} fontWeight={500} color="#11142D" textTransform="capitalize">{propertyDetails.propertyType}</Typography>
               <Box>
-                {[1, 2, 3, 4, 5].map((item) => <Star key={`star-${item}`} sx={{ color: '#F2C94C' }} />)}
+                {
+                  starArray
+                }
               </Box>
             </Stack>
 
@@ -89,14 +109,14 @@ const PropertyDetails = () => {
 
             <Stack mt="25px" direction="column" gap="10px">
               <Typography fontSize={18} color="#11142D">Description</Typography>
-              <Typography fontSize={14} color="#808191">
+              <Typography fontSize={14} color="#808191" maxHeight='250px' overflow='auto'>
                 {propertyDetails.description}
               </Typography>
             </Stack>
           </Box>
         </Box>
 
-        <Box width="100%" flex={1} maxWidth={326} display="flex" flexDirection="column" gap="20px">
+        <Box width="100%" flex={1} maxWidth={326} display="flex" flexDirection="column" gap="20px" marginX={{xs: 'auto', lg:'0'}} justifyContent='space-around' mt='20px'>
           <Stack
             width="100%"
             p={2}
@@ -163,9 +183,7 @@ const PropertyDetails = () => {
               style={{ borderRadius: 10, objectFit: 'cover' }}
               alt='img'
             />
-          </Stack>
-
-          <Box>
+            <Box mt='20px'>
             <CustomButton
               title="Book Now"
               backgroundColor="#475BE8"
@@ -173,9 +191,44 @@ const PropertyDetails = () => {
               fullWidth
             />
           </Box>
+          </Stack>
         </Box>
       </Box>
+      
+      <Typography fontSize={20} fontWeight={600} color="#11142D" mt='30px'>Reviews</Typography>
+
+      <Box>
+        {
+          propertyDetails.allReviews.slice(0).reverse().map((review: any) => {
+            
+            const starArray = [];
+            for(var i=0; i < review.rating; i++){
+              starArray.push(<Star key={`star-${i}`} sx={{ color: '#F2C94C' }} />);
+            }
+            for(var j=review.rating; i < 5; i++){
+              starArray.push(<Star key={`star-${j}`} sx={{ color: 'grey' }} />);
+            }
+
+            return(
+              <Box display='flex' flexDirection='row' padding='10px' height='200px' alignItems='center' key={review._id}>
+                <Box textAlign='center' mr='20px' fontWeight={800} display='flex' flexDirection='column'>
+                  <img src={review.user.avatar} alt='Review user' style={{ borderRadius: '10px' }}/>
+                  {review.user.name}
+                  <Box display='flex' >
+                    {starArray}
+                  </Box>
+                </Box>
+                <Box maxHeight='80%' overflow='auto'>
+                { review.message }
+                </Box>
+              </Box>
+            )
+          }
+          )
+        }  
+      </Box>
     </Box>
+
   );
 };
 

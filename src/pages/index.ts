@@ -8,6 +8,8 @@ import MyProfile from './my-profile';
 import PropertyDetails from './property-details';
 import EditProperty from './edit-property';
 import EditProfile from './edit-profile';
+import Reviews from './reviews';
+import CreateReview from './new-review';
 
 export {
   AgentProfile,
@@ -19,5 +21,7 @@ export {
   MyProfile,
   PropertyDetails,
   EditProperty,
-  EditProfile
+  EditProfile,
+  Reviews,
+  CreateReview
 };

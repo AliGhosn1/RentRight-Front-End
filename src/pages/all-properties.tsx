@@ -51,17 +51,22 @@ const AllProperties = () => {
           gap: 3
         }}>
           <Stack direction='column' width='100%'>
-            <Typography fontSize={25} fontWeight={700} color='#11142d'>
-              {allProperties.length ? 'All Properties' : 'There are no properties'}
-            </Typography>
-            <Box mb={2} mt={3} display='flex' width='84%' justifyContent='space-between' flexWrap='wrap'>
+            <Stack direction='row' justifyContent='space-between' alignItems='center'>
+              <Typography fontSize={25} fontWeight={700} color='#11142d'>
+                {allProperties.length ? 'All Properties' : 'There are no properties'}
+              </Typography>
+              <CustomButton title="Add Property" handleClick={() => navigate('/properties/create')} backgroundColor='#475be8' color='#fcfcfc' icon={<Add />} />
+            </Stack>
+            <Box mb={2} mt={3} display='flex' width='84%' justifyContent='center' alignItems='center' flexWrap='wrap' margin='20px auto 0 auto'>
               <Box display='flex' gap={2} flexWrap='wrap' mb={{xs: '20px', sm: 0}}> 
-                <CustomButton 
-                  title={`Sort Price ${ currentPrice === 'asc' ? '↑' : '↓'}`}
-                  color='#fcfcfc'
-                  backgroundColor="#475be8"
-                  handleClick={ () => toggleSort('price') }
-                />
+                <Box display={{xs:'none', sm: 'inline-block'}}>
+                  <CustomButton 
+                    title={`Sort Price ${ currentPrice === 'asc' ? '↑' : '↓'}`}
+                    color='#fcfcfc'
+                    backgroundColor="#475be8"
+                    handleClick={ () => toggleSort('price') }
+                  />
+                </Box>
                 <TextField variant="outlined" color='info' placeholder="Search by title" value={ currentFilterValues.title } 
                   onChange={(e) => {
                     setFilters([
@@ -96,9 +101,6 @@ const AllProperties = () => {
 
         </Box>
 
-        <Stack direction='row' justifyContent='space-between' alignItems='center'>
-          <CustomButton title="Add Property" handleClick={() => navigate('/properties/create')} backgroundColor='#475be8' color='#fcfcfc' icon={<Add />} />
-        </Stack>
         <Box mt='20px' sx={{
           display: 'flex',
           flexWrap: 'wrap',
@@ -119,21 +121,25 @@ const AllProperties = () => {
         </Box>
 
         {allProperties.length > 0 &&
-        <Box display='flex' gap={2} mt={3} flexWrap='wrap' color='#11142d'>
-          <CustomButton title="Previous" handleClick={() => setCurrent(prev => prev-1)} backgroundColor="#475be8" color="#fcfcfc" disabled={!(current > 1)} />
-          <Box 
-            display={{xs: 'hidden', sm: 'flex'}}
-            alignItems='center'
-            gap='5px'
-          >
-            Page{` `}<strong>{ current } of { pageCount }</strong>
+        <Box>
+          <Box display='flex' gap={2} mt={3} flexWrap='wrap' color='#11142d' justifyContent='center'>
+            <CustomButton title="Previous" handleClick={() => setCurrent(prev => prev-1)} backgroundColor="#475be8" color="#fcfcfc" disabled={!(current > 1)} />
+            <Box 
+              display='flex'
+              alignItems='center'
+              gap='5px'
+            >
+              Page{` `}<strong>{ current } of { pageCount }</strong>
+            </Box>
+            <CustomButton title="Next" handleClick={() => setCurrent(prev => prev+1)} backgroundColor="#475be8" color="#fcfcfc" disabled={(current === pageCount)} />
           </Box>
-          <CustomButton title="Next" handleClick={() => setCurrent(prev => prev+1)} backgroundColor="#475be8" color="#fcfcfc" disabled={(current === pageCount)} />
-          <Select variant="outlined" color="info" displayEmpty required inputProps={{'aria-label': 'Without label'}} defaultValue={10} onChange={(e) => setPageSize(e.target.value ? Number(e.target.value) : 10)}>
-            {
-              [10, 20, 30, 40, 50].map((size) => <MenuItem key={size} value={size}>Show { size }</MenuItem>)
-            }
-          </Select>
+          <Box margin='10px auto 0' width='fit-content'>
+            <Select variant="outlined" color="info" displayEmpty required inputProps={{'aria-label': 'Without label'}} defaultValue={10} onChange={(e) => setPageSize(e.target.value ? Number(e.target.value) : 10)}>
+              {
+                [10, 20, 30, 40, 50].map((size) => <MenuItem key={size} value={size}>Show { size }</MenuItem>)
+              }
+            </Select>
+          </Box>
         </Box>
         }
       </Box>

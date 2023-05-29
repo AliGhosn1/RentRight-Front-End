@@ -14,8 +14,6 @@ const MyProfile = () => {
   if(isLoading) return <div>Loading...</div>
   if(isError) return <div>Something went wrong</div>
 
-  console.log(myProfile.name)
-
   return ( 
     <Profile 
       type='My'

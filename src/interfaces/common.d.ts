@@ -49,3 +49,4 @@ export interface PropertyReferralsProps {
         {title: string, percentage: number, color: string}
     ]
 }
+

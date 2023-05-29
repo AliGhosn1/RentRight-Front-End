@@ -35,7 +35,9 @@ import {
   CreateProperty,
   AgentProfile,
   EditProperty,
-  EditProfile
+  EditProfile,
+  Reviews,
+  CreateReview
 } from "pages";
 
 const axiosInstance = axios.create();
@@ -150,14 +152,15 @@ function App() {
             },
             {
               name: "reviews",
-              list: Home,
+              list: CreateReview,
+              // create: CreateReview,
               icon: <StarOutlineRounded />
             },
-            {
-              name: "messages",
-              list: Home,
-              icon: <ChatBubbleOutlined />
-            },
+            // {
+            //   name: "messages",
+            //   list: Home,
+            //   icon: <ChatBubbleOutlined />
+            // },
             {
               name: "my-profile",
               options:{

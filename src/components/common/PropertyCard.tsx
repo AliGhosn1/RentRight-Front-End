@@ -11,12 +11,13 @@ const PropertyCard = ({ id, title, location, price, photo }: PropertyCardProps) 
       to={`/properties/show/${id}`}
       sx={{
         bgcolor: 'white',
-        maxWidth: '330px',
+        width: {xs: '330px', sm: '340px'},
         padding: '10px',
         '&:hover': {
           boxShadow: '0 22px 45px 2px rgba(176, 176, 176, 0.1)'
         },
         cursor: 'pointer',
+        mx: {xs: 'auto', sm: '0'}
       }}
       elevation={0}
     >
