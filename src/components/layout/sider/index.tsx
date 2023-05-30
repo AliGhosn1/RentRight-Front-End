@@ -30,7 +30,10 @@ import {
   ListItemIcon,
   ListItemText,
   MuiList,
+  ThemeProvider,
   Tooltip,
+  createTheme,
+  CssBaseline
 } from "@pankod/refine-mui";
 import React, { useState } from "react";
 
@@ -335,8 +338,15 @@ export const Sider: typeof DefaultSider = ({ render }) => {
     </MuiList>
   );
 
+  const lightTheme = createTheme({
+    palette: {
+       mode: "light"
+    },
+  });
+
   return (
-    <>
+    <ThemeProvider theme={lightTheme}>
+      <CssBaseline />
       <Box
         sx={{
           width: { xs: drawerWidth() },
@@ -454,6 +464,6 @@ export const Sider: typeof DefaultSider = ({ render }) => {
           </IconButton>
         </Box>
       </Box>
-    </>
+    </ThemeProvider>
   );
 };

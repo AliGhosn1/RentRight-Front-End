@@ -125,7 +125,7 @@ const AllProperties = () => {
           <Box display='flex' gap={2} mt={3} flexWrap='wrap' color='#11142d' justifyContent='center'>
             <CustomButton title="Previous" handleClick={() => setCurrent(prev => prev-1)} backgroundColor="#475be8" color="#fcfcfc" disabled={!(current > 1)} />
             <Box 
-              display='flex'
+              display={{xs: 'none', sm:'flex'}}
               alignItems='center'
               gap='5px'
             >

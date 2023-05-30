@@ -71,7 +71,7 @@ const CreateProperty = () => {
                         {...register('propertyId', { required: true })}
                     >
                         {
-                            allPropertis.map((property) => <MenuItem value={property._id}>{ property.title }</MenuItem>)
+                            allPropertis.map((property) => <MenuItem key={property._id} value={property._id}>{ property.title }</MenuItem>)
                         }
                     </Select>
                 </FormControl>
@@ -92,7 +92,7 @@ const CreateProperty = () => {
                     {...register('rating', { required: true })}
                 >
                     {
-                        [1, 2, 3, 4, 5].map((rating) => <MenuItem value={rating}>{ rating }</MenuItem>)
+                        [1, 2, 3, 4, 5].map((rating) => <MenuItem key={rating} value={rating}>{ rating }</MenuItem>)
                     }
                 </Select>
               </FormControl>
